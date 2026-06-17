@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teste e Testa — 14 de Novembro de 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:   #FAF8F3;
+      --cream:   #F2EDE4;
+      --gold:    #C9A84C;
+      --gold-lt: #E3C97A;
+      --rose:    #D4A9A1;
+      --charcoal:#3A3530;
+      --mid:     #7A7068;
+      --radius:  2px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(250,248,243,.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201,168,76,.18);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.07); }
+    .nav-monogram {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300; letter-spacing: 4px;
+      color: var(--gold);
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 11px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--mid);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 1px; background: var(--charcoal); display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background:
+        linear-gradient(to bottom, rgba(250,248,243,0) 50%, var(--ivory) 100%),
+        url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80') center/cover no-repeat;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(250,248,243,.45);
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px;
+    }
+    .hero-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 9vw, 108px);
+      font-weight: 300; line-height: 1.0;
+      color: var(--charcoal);
+      letter-spacing: -1px;
+    }
+    .hero-names em { font-style: italic; color: var(--gold); }
+    .hero-divider {
+      display: flex; align-items: center; gap: 16px;
+      justify-content: center; margin: 28px 0;
+    }
+    .hero-divider::before, .hero-divider::after {
+      content: ''; flex: 1; max-width: 80px; height: 1px; background: var(--gold);
+    }
+    .hero-date {
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--mid);
+    }
+    .hero-location { font-size: 13px; color: var(--mid); margin-top: 6px; }
+
+    /* ── COUNTDOWN ── */
+    .countdown-section {
+      background: var(--charcoal);
+      padding: 64px 24px;
+      text-align: center;
+    }
+    .countdown-label {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 36px;
+    }
+    .countdown-grid {
+      display: flex; gap: 0; justify-content: center; flex-wrap: wrap;
+    }
+    .countdown-item {
+      padding: 0 32px;
+      border-right: 1px solid rgba(201,168,76,.25);
+    }
+    .countdown-item:last-child { border-right: none; }
+    .countdown-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 8vw, 80px); font-weight: 300;
+      color: var(--ivory); line-height: 1;
+    }
+    .countdown-unit {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-top: 8px;
+    }
+    .countdown-done {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-style: italic;
+      color: var(--gold-lt);
+    }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 96px 24px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 5vw, 52px); font-weight: 300;
+      line-height: 1.15; margin-bottom: 32px;
+    }
+    .section-title em { font-style: italic; color: var(--rose); }
+
+    /* ── STORY ── */
+    .story-section { background: var(--cream); }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 2px 1fr;
+      gap: 0 40px; align-items: start;
+    }
+    .story-line { background: linear-gradient(to bottom, transparent, var(--gold), transparent); }
+    .story-block { display: flex; flex-direction: column; gap: 48px; }
+    .story-entry {}
+    .story-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; color: var(--gold); letter-spacing: 2px;
+      font-style: italic; margin-bottom: 8px;
+    }
+    .story-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600; margin-bottom: 10px;
+    }
+    .story-text { font-size: 14px; color: var(--mid); line-height: 1.8; }
+
+    /* ── GALLERY ── */
+    .gallery-section { background: var(--ivory); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 12px; margin-top: 48px;
+    }
+    .gallery-item {
+      overflow: hidden; border-radius: var(--radius);
+      position: relative;
+    }
+    .gallery-item.tall { grid-row: span 2; }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: transform .6s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    /* ── THANKS ── */
+    .thanks-section {
+      background: var(--charcoal);
+      text-align: center;
+    }
+    .thanks-section .section-title { color: var(--ivory); }
+    .thanks-section .section-title em { color: var(--gold-lt); }
+    .thanks-text { color: rgba(250,248,243,.65); font-size: 15px; max-width: 540px; margin: 0 auto 48px; }
+    .btn-presentes {
+      display: inline-block;
+      padding: 18px 52px;
+      border: 1px solid var(--gold);
+      color: var(--ivory);
+      text-decoration: none;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      font-family: 'Jost', sans-serif; font-weight: 400;
+      position: relative; overflow: hidden;
+      transition: color .35s;
+    }
+    .btn-presentes::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .btn-presentes:hover { color: var(--charcoal); }
+    .btn-presentes:hover::before { transform: scaleX(1); }
+    .btn-presentes span { position: relative; z-index: 1; }
+    .btn-arrow { margin-left: 10px; }
+
+    /* ── ORNAMENT ── */
+    .ornament {
+      display: block; text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; color: var(--gold-lt); opacity: .45;
+      margin: 32px 0;
+      letter-spacing: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(201,168,76,.15);
+      text-align: center;
+      padding: 32px 24px;
+    }
+    footer p { font-size: 11px; color: rgba(250,248,243,.35); letter-spacing: 1px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+        background: var(--ivory); flex-direction: column; align-items: center; justify-content: center;
+        gap: 40px; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .story-grid { grid-template-columns: 1fr; }
+      .story-line { display: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.tall { grid-row: span 1; }
+      .countdown-item { padding: 0 18px; }
+      .hero-names { letter-spacing: -0.5px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      section { padding: 72px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <span class="nav-monogram">I &amp; R</span>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#historia">Nossa História</a></li>
+    <li><a href="#fotos">Fotos</a></li>
+    <li><a href="#presentes">Presentes</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Convidamos você para celebrar</p>
+    <h1 class="hero-names">Isabella<br/>&amp; <em>Rafael</em></h1>
+    <div class="hero-divider">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 0 L9.8 6.5 L16 6.5 L10.8 10.5 L12.7 17 L9 13 L5.3 17 L7.2 10.5 L2 6.5 L8.2 6.5 Z" fill="#C9A84C" opacity=".6"/></svg>
+    </div>
+    <p class="hero-date">14 de Fevereiro de 2026 · Sábado</p>
+    <p class="hero-location">Espaço Jardim das Orquídeas · São Paulo, SP</p>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<div class="countdown-section">
+  <p class="countdown-label">Faltam para o grande dia</p>
+  <div class="countdown-grid" id="countdown">
+    <div class="countdown-item"><div class="countdown-num" id="cd-days">--</div><div class="countdown-unit">Dias</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-hours">--</div><div class="countdown-unit">Horas</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-mins">--</div><div class="countdown-unit">Minutos</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-secs">--</div><div class="countdown-unit">Segundos</div></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="story-section" id="historia">
+  <div class="section-inner">
+    <span class="section-eyebrow">Como tudo começou</span>
+    <h2 class="section-title">Nossa <em>História</em></h2>
+    <div class="story-grid">
+      <div class="story-block">
+        <div class="story-entry">
+          <p class="story-year">2019 — Primeiro encontro</p>
+          <h3 class="story-heading">O início de tudo</h3>
+          <p class="story-text">Foi numa tarde de outubro, numa livraria do centro da cidade, que Isabella e Rafael se encontraram pela primeira vez. Ele procurava um livro de arquitetura; ela estava perdida entre os romances. Um sorriso trocado e uma conversa que durou horas foi o suficiente para saber que aquele encontro era diferente.</p>
+        </div>
+        <div class="story-entry">
+          <p class="story-year">2021 — A grande viagem</p>
+          <h3 class="story-heading">Portugal nos uniu ainda mais</h3>
+          <p class="story-text">Dois anos depois, decidiram conhecer Lisboa juntos. Entre as ruas de paralelepípedo e o som do fado, perceberam que queriam envelhecer lado a lado. Foi lá, numa varanda com vista para o Tejo, que Rafael disse pela primeira vez "quero casar com você".</p>
+        </div>
+      </div>
+      <div class="story-line"></div>
+      <div class="story-block">
+        <div class="story-entry" style="margin-top: 96px;">
+          <p class="story-year">2020 — Ficou oficial</p>
+          <h3 class="story-heading">Quando o "curtir" virou amor</h3>
+          <p class="story-text">Meses de mensagens tarde da noite, conversas até o amanhecer e encontros que jamais tinham hora pra acabar. Em março de 2020, no meio do mundo se descobrindo de um jeito novo, eles se descobriram de verdade. Ficaram juntos — e nunca mais quiseram se separar.</p>
+        </div>
+        <div class="story-entry">
+          <p class="story-year">2024 — O pedido</p>
+          <h3 class="story-heading">Sim para sempre</h3>
+          <p class="story-text">Numa jantar surpresa com os mais próximos, Rafael ajoelhou-se com o anel que pertenceu à avó de Isabella. Ela chorou antes mesmo de ele terminar a frase. O "sim" foi tão alto que o restaurante inteiro aplaudiu. Agora, contamos os dias para o capítulo mais bonito.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="fotos">
+  <div class="section-inner">
+    <span class="section-eyebrow">Momentos juntos</span>
+    <h2 class="section-title">Nossas <em>Fotos</em></h2>
+  </div>
+  <div style="max-width:1100px; margin:0 auto; padding:0 24px;">
+    <div class="gallery-grid">
+      <div class="gallery-item tall">
+        <img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?w=600&q=80" alt="Casal na praia" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=600&q=80" alt="Buquê de noiva" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?w=600&q=80" alt="Casal no parque" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456503681?w=600&q=80" alt="Alianças" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1478146059778-26028b07395a?w=600&q=80" alt="Casal ao pôr do sol" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THANKS + CTA -->
+<section class="thanks-section" id="presentes">
+  <div class="section-inner" style="text-align:center;">
+    <span class="section-eyebrow">Vocês fazem parte disso</span>
+    <h2 class="section-title">Obrigado por <em>estarem aqui</em></h2>
+    <p class="thanks-text">
+      Nenhuma celebração seria completa sem cada um de vocês. Sua presença é o maior presente que poderíamos receber. Para quem deseja nos presentear, preparamos uma lista especial com itens que vão ajudar a construir o nosso novo lar juntos.
+    </p>
+    <span class="ornament">✦ ✦ ✦</span>
+    <a href="presentes.html" class="btn-presentes">
+      <span>Ver Lista de Presentes <span class="btn-arrow">→</span></span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Isabella &amp; Rafael · 14 de Fevereiro de 2026 · Feito com amor ♡</p>
+</footer>
+
+<script>
+  // NAV scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Countdown
+  const weddingDate = new Date('2026-02-14T16:00:00');
+  function updateCountdown() {
+    const now = new Date();
+    const diff = weddingDate - now;
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<p class="countdown-done">O grande dia chegou! ♡</p>';
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
